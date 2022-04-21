@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Feedback Form
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-6 mt-2">
+            <form id="feedback_form" method="POST">
+                {{ form.hidden_tag() }}
+
+                {% for field in form
+                if field.widget.input_type != 'hidden' %}
+
+                <p class="">
+                    {{ field.label(class_="form-label") }}
+                    {{ field(class_="form-control") }}
+
+                    {% for error in field.errors %}
+                    {{ error }}
+                    {% endfor %}
+                </p>
+                {% endfor %}
+                <div class="float-end">
+                    <button class="btn btn-success" type="submit">
+                        {% if type_page == "add" %}Add Feedback
+                        {% elif type_page == "edit" %}Submit Changes
+                        {% endif %}
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

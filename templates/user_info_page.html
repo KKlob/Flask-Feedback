@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block title %}
+User Info Page
+{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center mt-2">
+    <div class="col-6">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title text-center">{{user.username}}</h5>
+                <h6 class="card-subtitle text-center mb-2 text-muted">{{user.first_name}} {{user.last_name}}</h6>
+                <h6 class="card-subtitle text-center mb-2 text-muted">Email: {{user.email}}</h6>
+                <form action="/users/{{user.username}}/delete" method="POST">
+                    <p class="card-text text-center">
+                        <a href="/users/{{user.username}}/feedback/add" class="btn btn-primary">Add Feedback</a>
+                        <button type="submit" class="btn btn-danger">Delete User</button>
+                    </p>
+                </form>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row mt-2 mx-2">
+    {% for feedback in user.feedback %}
+    <div class="col-6">
+        <div class="card m-2">
+            <div class="card-body">
+                <h5 class="card-title text-center">{{ feedback.title }}</h5>
+                <h6 class="card-subtitle text-center mb2 text-muted">Created by {{ feedback.username }}</h6>
+                <p class="card-text text-center">{{ feedback.content }}</p>
+                <form action="/feedback/{{feedback.id}}/delete" method="POST">
+                    <p class="card-text text-center">
+                        <a href="/feedback/{{feedback.id}}/update" class="btn btn-warning">Edit</a>
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </p>
+                </form>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+{% endblock %}
